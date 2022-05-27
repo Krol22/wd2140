@@ -208,7 +208,7 @@ for (let i = 0; i < numberOfFiles; i++) {
 let mix;
 
 Object.keys(files)
-  .filter(key => key === 'SPRU0.MIX') // #TODO just for easy debugging
+  .filter(key => key === 'SPRB0.MIX') // #TODO just for easy debugging
   .forEach(key => {
     mix = new Mix(key, files[key]);
   });
