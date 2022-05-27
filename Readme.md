@@ -10,3 +10,6 @@ then run `node index.js`
 
 Screenshots:
 
+![generated frames 1](https://raw.githubusercontent.com/Krol22/wd2140/master/screenshots/gen1.png)
+![generated frames 2](https://raw.githubusercontent.com/Krol22/wd2140/master/screenshots/gen2.png)
+
