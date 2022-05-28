@@ -88,14 +88,24 @@ class Mix {
         const g = buffer.readByte();
         const b = buffer.readByte();
         const a = 0xFF;
-        this.palettes[i].push({
-          r,
-          g,
-          b,
-          a,
-        });
 
-        // 0x00 -> 0xF7 - texture color;
+        if (244 <= j && j <= 247) {
+          this.palettes[i].push({
+            r: 0,
+            g: 0,
+            b: 0,
+          })
+        } else {
+          this.palettes[i].push({
+            r,
+            g,
+            b,
+            a,
+          });
+        }
+
+        // 0x00 -> 0xF3 - texture color;
+        // 0xF4 -> 0xF7 - light color;
         // 0xF8 -> 0xFD - faction color;
         // 0xFE -> 0xFF - shadow color;
       }
@@ -228,3 +238,17 @@ mix.frames.forEach((frame, index) => {
   PImage.encodePNGToStream(img1, fs.createWriteStream(`frames/frame${index}.png`));
 })
 
+mix.palettes.forEach((palette, index) => {
+  const img = PImage.make(16 * 10, 16 * 10);
+  const ctx = img.getContext('2d');
+  for (let y = 0; y < 16; y++) {
+    for (let x = 0; x < 16; x++) {
+      const color = palette[x + y * 16];
+      const { r, g, b } = color;
+      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+      ctx.fillRect(x * 10, y * 10, 10, 10);
+    }
+  }
+
+  PImage.encodePNGToStream(img, fs.createWriteStream(`frames/palette${index}.png`));
+});
